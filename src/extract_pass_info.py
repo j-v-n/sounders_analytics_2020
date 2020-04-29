@@ -1,5 +1,3 @@
-### define a function which given a particular match and player name, extracts all the relevant pass information
-
 import pandas as pd
 import numpy as np
 import glob
@@ -18,10 +16,7 @@ def pass_extractor(player_name, match_id, filepath, start_id=0):
     
     Returns:
         - df_passes: a pass dataframe
-    
-    Issues:
-        - what happens if the player is not in a match
-    
+        
     """
 
     # define file path
@@ -43,8 +38,10 @@ def pass_extractor(player_name, match_id, filepath, start_id=0):
                     # create a new entry in the dictionary with the key being the id
 
                     # first let's read information which always appears in the dataset in the event of a pass
+                    pass_dict[pass_id]["match_id"] = match_id
 
-                    # starting with start location
+                    # then start location
+
                     pass_dict[pass_id]["start_location"] = df_events.location[i]
 
                     # end location
@@ -136,9 +133,8 @@ def pass_exception_handler(
 
     Args:
         - events_df: events dataframe read from json file
-        - iterator_for_row: the value for i in the main for loop in pass_extractor
-        - key: feature to be searched, like backheel, miscommunication etc
-
+        - iterator_for_row: the value for i in the main fill a list with pandas dataframes
+    
     Returns:
         - True or False
     """
@@ -157,8 +153,3 @@ def pass_exception_handler(
                 return events_df.iloc[iterator_for_row, 17][key]["name"]
         except KeyError:
             return default_return
-
-
-trial_pass = pass_extractor("Vivianne Miedema", 2275037, filepath="./sample_data/")
-trial_pass_df = pd.DataFrame.from_dict(trial_pass, orient="index")
-print(trial_pass_df)

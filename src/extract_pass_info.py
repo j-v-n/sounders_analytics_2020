@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import glob
 from collections import defaultdict
+from pprint import pprint
+from extract_game_state import game_state_extractor
 
 pd.options.display.max_columns = 20
 
@@ -37,7 +39,18 @@ def pass_extractor(player_name, match_id, filepath, start_id=0):
                 if df_events.type[i]["name"] == "Pass":
                     # create a new entry in the dictionary with the key being the id
 
-                    # first let's read information which always appears in the dataset in the event of a pass
+                    # add event index to dictionary
+                    pass_dict[pass_id]["index"] = df_events.index[i]
+
+                    # get the game state at the event index
+                    pass_dict[pass_id]["gamestate"] = game_state_extractor(
+                        df_events.index[i],
+                        match_id=match_id,
+                        player_name=player_name,
+                        filepath=filepath,
+                    )
+
+                    # reading match_id
                     pass_dict[pass_id]["match_id"] = match_id
 
                     # then start location
@@ -49,12 +62,7 @@ def pass_extractor(player_name, match_id, filepath, start_id=0):
                         "end_location"
                     ]
 
-                    # recipient information
-                    pass_dict[pass_id]["recipient"] = df_events.iloc[i, 17][
-                        "recipient"
-                    ]["name"]
-
-                    # pass length
+                    # Pass pass length
                     pass_dict[pass_id]["length"] = df_events.iloc[i, 17]["length"]
 
                     # pass angle

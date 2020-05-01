@@ -55,12 +55,21 @@ def pass_extractor(player_name, match_id, filepath, start_id=0):
 
                     # then start location
 
-                    pass_dict[pass_id]["start_location"] = df_events.location[i]
-
+                    pass_dict[pass_id]["start_X"] = df_events.location[i][0]
+                    pass_dict[pass_id]["start_Y"] = df_events.location[i][1]
                     # end location
-                    pass_dict[pass_id]["end_location"] = df_events.iloc[i, 17][
-                        "end_location"
+                    pass_dict[pass_id]["end_X"] = df_events.iloc[i, 17]["end_location"][
+                        0
                     ]
+                    pass_dict[pass_id]["end_Y"] = df_events.iloc[i, 17]["end_location"][
+                        1
+                    ]
+                    # pass time
+                    pass_dict[pass_id]["minute"] = df_events.minute[i]
+                    # recipient information
+                    pass_dict[pass_id]["recipient"] = df_events.iloc[i, 17][
+                        "recipient"
+                    ]["name"]
 
                     # Pass pass length
                     pass_dict[pass_id]["length"] = df_events.iloc[i, 17]["length"]

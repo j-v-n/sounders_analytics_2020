@@ -63,4 +63,4 @@ def game_state_extractor(event_index, match_id, player_name, filepath):
     elif goal_dict[player_team_name] < goal_dict["other"]:
         return "losing by {}".format(goal_dict["other"] - goal_dict[player_team_name])
     else:
-        return "drawing"
+        return "drawing {0}-{1}".format(goal_dict[player_team_name], goal_dict["other"])

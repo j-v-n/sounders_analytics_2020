@@ -17,7 +17,7 @@ def pass_extractor(player_name, match_id, filepath, start_id=0):
         - match_id: int, the match id which is usually the name of the events json file
     
     Returns:
-        - df_passes: a pass dataframe
+        - pass_dict: dict, a pass dictionary
         
     """
 
@@ -40,7 +40,7 @@ def pass_extractor(player_name, match_id, filepath, start_id=0):
                     # create a new entry in the dictionary with the key being the id
 
                     # add event index to dictionary
-                    pass_dict[pass_id]["index"] = df_events.index[i]
+                    pass_dict[pass_id]["index"] = df_events.index[i + 1]
 
                     # get the game state at the event index
                     pass_dict[pass_id]["gamestate"] = game_state_extractor(

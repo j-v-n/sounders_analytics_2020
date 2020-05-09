@@ -17,7 +17,8 @@ def shot_extractor(player_name, match_id, filepath, start_id=0):
         - match_id: int, the match id which is usually the name of the events json file
     
     Returns:
-        - df_shotes: a shot dataframe
+        - shot_dict: dict, a shot dictionary
+    
         
     """
 
@@ -45,7 +46,7 @@ def shot_extractor(player_name, match_id, filepath, start_id=0):
                     # create a new entry in the dictionary with the key being the id
 
                     # add event index to dictionary
-                    shot_dict[shot_id]["index"] = df_events.index[i]
+                    shot_dict[shot_id]["index"] = df_events.index[i + 1]
 
                     # get the game state at the event index
                     shot_dict[shot_id]["gamestate"] = game_state_extractor(

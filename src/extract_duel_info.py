@@ -20,7 +20,7 @@ def duels_extractor(player_name, match_id, filepath, start_id=0):
         - match_id: int, the match id which is usually the name of the events json file
         - filepath: str, location of files
     Returns:
-        - duels_dict: a duels dictionary
+        - duels_dict: dict, a duels dictionary
         
     """
 
